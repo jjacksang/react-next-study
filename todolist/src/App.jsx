@@ -7,19 +7,19 @@ import { useRef } from "react";
 
 const mockData = [
     {
-        id: 1,
+        id: 0,
         isDone: false,
         content: "빨래를 해야겠어요",
         createdDate: new Date().getTime(),
     },
     {
-        id: 2,
+        id: 1,
         isDone: false,
         content: "공부를 해야겠어요",
         createdDate: new Date().getTime(),
     },
     {
-        id: 3,
+        id: 2,
         isDone: true,
         content: "노래를 해야겠어요",
         createdDate: new Date().getTime(),
@@ -28,7 +28,7 @@ const mockData = [
 
 function App() {
     const [todos, setTodos] = useState(mockData);
-    const idRef = useRef(4);
+    const idRef = useRef(3);
 
     const onCreate = (content) => {
         const newTodo = {
@@ -49,11 +49,15 @@ function App() {
         );
     };
 
+    const onDelete = (targetId) => {
+        setTodos(todos.filter((todo) => todo.id !== targetId));
+    };
+
     return (
         <div className="App">
             <Header />
             <TodoEditor onCreate={onCreate} />
-            <TodoList todos={todos} onUpdate={onUpdate} />
+            <TodoList todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
         </div>
     );
 }

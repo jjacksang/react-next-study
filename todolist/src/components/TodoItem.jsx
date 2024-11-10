@@ -6,9 +6,14 @@ export default function TodoItem({
     content,
     createdDate,
     onUpdate,
+    onDelete,
 }) {
     const onChangeCheckbox = () => {
         onUpdate(id);
+    };
+
+    const onClickDeleteBtn = () => {
+        onDelete(id);
     };
 
     return (
@@ -22,7 +27,7 @@ export default function TodoItem({
             <div className="date">
                 {new Date(createdDate).toLocaleDateString()}
             </div>
-            <button>삭제</button>
+            <button onClick={onClickDeleteBtn}>삭제</button>
         </div>
     );
 }
