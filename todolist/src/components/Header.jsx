@@ -9,6 +9,4 @@ function Header() {
     );
 }
 
-const OptimizedHeaderComponent = memo(Header);
-
-export default OptimizedHeaderComponent;
+export default memo(Header);
