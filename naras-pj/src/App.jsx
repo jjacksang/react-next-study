@@ -1,15 +1,23 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
-function App() {
-    const [count, setCount] = useState(0);
+import { Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
+import Country from "./pages/Country";
+import Search from "./pages/Search";
+import NotFound from "./pages/NotFound";
+import Layout from "./components/layout";
+
+function App() {
     return (
-        <>
-            <div>기초 세팅</div>
-        </>
+        <Layout>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="Country/:code" element={<Country />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Layout>
     );
 }
 
