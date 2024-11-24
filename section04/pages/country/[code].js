@@ -1,9 +1,18 @@
 import { fetchCountry } from "@/api";
+import SubLayout from "@/components/SubLayout";
 import { useRouter } from "next/router";
 
 export default function Country({ country }) {
     const router = useRouter();
     const { code } = router.query;
+
+    if (router.isFallback) {
+        return <div>Loadin...</div>;
+    }
+
+    if (!country) {
+        return <div>존재하지 않는 국가입니다.</div>;
+    }
 
     return (
         <div>
@@ -12,8 +21,18 @@ export default function Country({ country }) {
     );
 }
 
-export const getServerSideProps = async (context) => {
+Country.Layout = SubLayout;
+
+export const getStaticPaths = async () => {
+    return {
+        paths: [{ params: { code: "KOR" } }, { params: { code: "ITA" } }],
+        fallback: true,
+    };
+};
+
+export const getStaticProps = async (context) => {
     const { code } = context.params;
+    console.log(`${code} 페이지 생성!`);
 
     let country = null;
 
@@ -23,5 +42,6 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: { country },
+        revalidate: 3,
     };
 };

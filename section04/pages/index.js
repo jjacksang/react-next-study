@@ -1,17 +1,18 @@
 import { fetchCountries } from "@/api";
+import CountryList from "@/components/CountryList";
+import Searchbar from "@/components/Searchbar";
 
 export default function Home({ countries }) {
     return (
-        <div>
-            {countries.map((country) => (
-                <div key={country.code}>{country.commonName}</div>
-            ))}
-        </div>
+        <>
+            <Searchbar />
+            <CountryList countries={countries} />
+        </>
     );
 }
 
-export const getServerSideProps = async () => {
-    // SSR을 위해 서버측에서 컴포넌트에게 전달할 데이터를 설정하는 함수
+// SSG
+export const getStaticProps = async () => {
     const countries = await fetchCountries();
 
     return {
